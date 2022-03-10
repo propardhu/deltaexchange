@@ -1,25 +1,62 @@
 <template>
-    <div class="modal" v-if="openDia">
+  <div class="modal" v-if="openDia">
     <div class="modal-content">
-      <span class="close" @click="openDia=false">&times;</span>
-      <p>Some text in the Modal..</p>
+      <span class="close" @click="openDia = false">&times;</span>
+      <section class="signup-view">
+        <div style="text-align: left; font-size: 20px" class="ui form">
+          <h2>signin</h2>
+          <label style="margin-left: 4%" for="name">Name</label><br />
+          <input
+            type="text"
+            name="name"
+            v-model="data.name"
+            placeholder="name"
+            id="name"
+          />
+          <br />
+          
+          <br />
+          <br />
+          <button
+            style="
+              margin-left: 6%;
+              margin-right: auto !important;
+              margin-left: auto !important;
+            "
+            @click="submit"
+          >
+            submit
+          </button>
+        </div>
+      </section>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 export default defineComponent({
-    setup() {
-        const openDia = ref(false);
-        const openDiaAction = () =>{
-            openDia.value = true;
-        }
-        return{
-            openDia,
-            openDiaAction
-        }
-    }
-})
+  setup() {
+    const openDia = ref(false);
+    const openDiaAction = () => {
+      openDia.value = true;
+    };
+    var count = 7;
+    const data = reactive({
+      id: count++,
+      name: "",
+      Company: "",
+      Status: "",
+      Last_Updated: Date().toString(),
+      Notes: "",
+      selected: false,
+    });
+    return {
+      openDia,
+      data,
+      openDiaAction,
+    };
+  },
+});
 </script>
 <style scoped>
 .modal {

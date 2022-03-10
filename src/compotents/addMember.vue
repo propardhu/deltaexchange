@@ -14,7 +14,23 @@
             id="name"
           />
           <br />
-          
+          <label style="margin-left: 4%" for="company">Company Name</label
+          ><br />
+          <input
+            type="text"
+            name="company"
+            v-model="data.Company"
+            placeholder="company"
+            id="company"
+          />
+          <br />
+          <label style="margin-left: 4%" for="status">Status</label><br>
+          <select name="status" v-model="data.Status">
+            <option disabled value="">Please select one</option>
+            <option>Active</option>
+            <option>Closed</option>
+          </select>
+          <textarea v-model="data.Notes" placeholder="add multiple lines"></textarea>
           <br />
           <br />
           <button
@@ -34,25 +50,31 @@
 </template>
 <script>
 import { defineComponent, reactive, ref } from "vue";
+import { addData, data as DBData } from "@/store";
 export default defineComponent({
   setup() {
     const openDia = ref(false);
     const openDiaAction = () => {
       openDia.value = true;
     };
-    var count = 7;
+    var count = DBData.length;
     const data = reactive({
-      id: count++,
+      id: ++count,
       name: "",
       Company: "",
       Status: "",
-      Last_Updated: Date().toString(),
+      Last_Updated: new Date().toLocaleDateString("en-US"),
       Notes: "",
       selected: false,
     });
+    const submit = ()=>{
+      addData(data);
+      openDia.value = false;
+    }
     return {
       openDia,
       data,
+      submit,
       openDiaAction,
     };
   },

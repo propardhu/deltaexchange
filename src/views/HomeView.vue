@@ -1,5 +1,18 @@
 <template>
-  <h1>Home</h1>
+  <h1>Team Members</h1>
+  <button @click="openDialog">addMember</button><br />
+  <label for="status">Status</label>
+  <select name="status" v-model="searchStatus">
+    <option disabled value="">Please select one</option>
+    <option>Active</option>
+    <option>Closed</option>
+  </select>
+  <label for="company">Company</label>
+  <select name="company" v-model="searchCompany" multiple>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
   <table id="secondTable">
     <thead>
       <tr>
@@ -22,7 +35,6 @@
       </tr>
     </tbody>
   </table>
-  <button @click="openDialog">addMember</button>
   <addMember ref="addMember" />
 </template>
 <script>
@@ -31,16 +43,16 @@ import addMember from "@/compotents/addMember.vue";
 import { getData } from "@/store";
 
 export default defineComponent({
-    components:{
-        addMember
-    },
+  components: {
+    addMember,
+  },
   setup() {
     const rows = getData.value;
     const addMember = ref(null);
 
-    const openDialog = ()=>{
-        addMember.value.openDiaAction();
-    }
+    const openDialog = () => {
+      addMember.value.openDiaAction();
+    };
 
     const columns = computed(() => {
       if (rows.length == 0) {
@@ -73,7 +85,7 @@ export default defineComponent({
       columns,
       remove,
       openDialog,
-      addMember
+      addMember,
     };
   },
 });

@@ -26,17 +26,20 @@ const router = createRouter({
     routes,
 });
 
-// const avoidPath = ['login','signup'];
+const avoidPath = ['login','signup'];
 
-// router.beforeEach(function(to, from, next) {
-    // const is_authenticated = globalVariables.userAuth || false;
-    // if(avoidPath.indexOf(to.name as string) != -1){
-    //     return next();
-    // }
-    // if(is_authenticated){
-    //     return next();
-    // }
-    // next({'name':'login', query: {redirect: to.path}});
+router.beforeEach(function(to, from, next) {
+    var is_authenticated = false;
+    if(window.localStorage.getItem('token') == "admin"){
+        is_authenticated = true;
+    }
+    if(avoidPath.indexOf(to.name) != -1){
+        return next();
+    }
+    if(is_authenticated){
+        return next();
+    }
+    next({'name':'login'});
 
-// });
+});
 export default router;

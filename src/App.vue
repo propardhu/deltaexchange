@@ -54,5 +54,8 @@ table tbody tr:nth-child(2n) td {
 input {
     margin: .4rem;
 }
+label {
+  font-weight: bold;
+}
 
 </style>

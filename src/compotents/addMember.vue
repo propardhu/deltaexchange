@@ -1,5 +1,4 @@
 <template>
-hello
     <div class="modal" v-if="openDia">
     <div class="modal-content">
       <span class="close" @click="openDia=false">&times;</span>

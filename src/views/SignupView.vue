@@ -9,7 +9,7 @@
         <input type="password" name="password" v-model="data.password" placeholder="password" id="pass">
         <br>
         <br>
-        <button style=" margin-left:6%;margin-right: auto !important;
+        <button class="button-1" style=" margin-left:6%;margin-right: auto !important;
  margin-left: auto !important;" @click="submit">submit</button>
     </div>
   </section>

@@ -20,6 +20,28 @@ npm run build
 npm run lint
 ```
 
-#### plaese login using these details
-#### admin
-#### admin
+## Plaese login using these details
+#### username:- admin
+#### password:- admin
+
+## For sending an api request I prefer the following model
+```
+public makeFav(itemId?: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      axios
+        .post(ENDPOINT + `/${itemId}/makefav`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+            reject(err);
+        });
+    });
+  }
+```
+## OR
+```
+async function test(){
+  // call the promise method.
+}
+```

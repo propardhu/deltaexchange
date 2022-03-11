@@ -1,11 +1,11 @@
 <template>
-  <div class="modal" v-if="openDia">
-    <div class="modal-content">
+  <div class="modal" v-if="openDia" >
+    <div class="modal-content" style="width:300px;">
       <span class="close" @click="openDia = false">&times;</span>
       <section class="signup-view">
-        <div style="text-align: left; font-size: 20px" class="ui form">
-          <h2>signin</h2>
-          <label style="margin-left: 4%" for="name">Name</label><br />
+        <div style="text-align: left; font-size: 20px; margin-left:auto; margin-right:auto; text-align: center;" >
+          <h2>Add Member</h2>
+          <label for="name">Name</label><br />
           <input
             type="text"
             name="name"
@@ -14,7 +14,7 @@
             id="name"
           />
           <br />
-          <label style="margin-left: 4%" for="company">Company Name</label
+          <label for="company">Company Name</label
           ><br />
           <input
             type="text"
@@ -24,13 +24,14 @@
             id="company"
           />
           <br />
-          <label style="margin-left: 4%" for="status">Status</label><br>
+          <label for="status">Status</label><br>
           <select name="status" v-model="data.Status">
             <option disabled value="">Please select one</option>
             <option>Active</option>
             <option>Closed</option>
-          </select>
-          <textarea v-model="data.Notes" placeholder="add multiple lines"></textarea>
+          </select><br>
+          <label for="note">Notes</label><br>
+          <textarea v-model="data.Notes" name="note" placeholder="Keep Notes"></textarea>
           <br />
           <br />
           <button
@@ -39,6 +40,7 @@
               margin-right: auto !important;
               margin-left: auto !important;
             "
+            class="button-1"
             @click="submit"
           >
             submit

@@ -1,17 +1,17 @@
 <template>
-  <h1>Team Members</h1>
-  <button @click="openDialog">addMember</button><br />
-  <label for="status">Status</label>
-  <select name="status" v-model="searchStatus">
+  <h1>Team Members <button class="button-1" style="background-color: blue;" @click="openDialog">addMember</button></h1>
+  <label for="status">Status: </label>
+  <select name="status" style="margin-right:5%;" v-model="searchStatus">
     <option disabled value="">Please select one</option>
     <option>Active</option>
     <option>Closed</option>
   </select>
-  <label for="company">Company</label>
-  <select name="company" v-model="searchCompany" multiple>
+  <label for="company">Company: </label>
+  <select name="company" style="margin-right:5%;" v-model="searchCompany" multiple>
     <option v-for="i in CompanySet" :key="i">{{i}}</option>
   </select>
-  <table id="secondTable">
+  <button @click="rsetFilters" style="background-color: red;" class="button-1">reset</button>
+  <table id="secondTable" style="margin-top:10px;">
     <thead>
       <tr>
         <th v-for="col in columns" :key="col.id">
@@ -28,7 +28,7 @@
           {{ row[col] }}
         </td>
         <td>
-          <button @click="remove(row['id'])">delete</button>
+          <button class="button-1" @click="remove(row['id'])">delete</button>
         </td>
       </tr>
     </tbody>

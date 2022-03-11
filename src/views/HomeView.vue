@@ -9,9 +9,7 @@
   </select>
   <label for="company">Company</label>
   <select name="company" v-model="searchCompany" multiple>
-    <option>A</option>
-    <option>B</option>
-    <option>C</option>
+    <option v-for="i in CompanySet" :key="i">{{i}}</option>
   </select>
   <table id="secondTable">
     <thead>
@@ -60,16 +58,17 @@ export default defineComponent({
       rows.forEach((i) => {
         if (
           searchStatus.value.length > 0 &&
-          searchCompany.value.length > 0 &&
-          searchStatus.value.includes(i.Company) &&
-          i.Status == searchStatus.value
+          searchCompany.value.length > 0 
         ) {
-          searchdata.push(i);
+          if(searchCompany.value.includes(i.Company) &&
+          i.Status == searchStatus.value){
+            searchdata.push(i);
+          }
         } else {
           if (searchStatus.value.length > 0 && i.Status == searchStatus.value) {
             searchdata.push(i);
           }
-          if (searchCompany.value.length > 0 && searchStatus.value.includes(i.Company)) {
+          if (searchCompany.value.length > 0 && searchCompany.value.includes(i.Company)) {
             searchdata.push(i);
           }
         }
@@ -77,6 +76,14 @@ export default defineComponent({
       return searchdata;
     });
 
+    const CompanySet = computed(()=> {
+      const setCompany= new Set();
+      rows.forEach((i)=>{
+        setCompany.add(i.Company);
+      })
+      return setCompany;
+    })
+    
     const openDialog = () => {
       addMember.value.openDiaAction();
     };
@@ -116,6 +123,7 @@ export default defineComponent({
       searchStatus,
       searchCompany,
       serchFilters,
+      CompanySet
     };
   },
 });

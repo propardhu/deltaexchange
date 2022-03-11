@@ -26,10 +26,10 @@ npm run lint
 
 ## For sending an api request I prefer the following model
 ```
-public makeFav(itemId?: any): Promise<void> {
+public sampleMethod(k?: any): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       axios
-        .post(ENDPOINT + `/${itemId}/makefav`)
+        .post(ENDPOINT + `/${k}/sampleMethod`)
         .then(res => {
           resolve(res.data);
         })

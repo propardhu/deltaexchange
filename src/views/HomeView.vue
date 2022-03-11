@@ -20,11 +20,11 @@
           <input v-if="col == 'id'" v-model="selectall" type="checkbox" />
           {{ col }}
         </th>
-        <th>actions</th>
+        <th v-if="serchFilters.length != 0">actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="row in rows" :key="row['id']">
+      <tr v-for="row in serchFilters" :key="row['id']">
         <td v-for="col in columns" :key="col">
           <input v-if="col == 'id'" v-model="row['selected']" type="checkbox" />
           {{ row[col] }}
@@ -38,7 +38,7 @@
   <addMember ref="addMember" />
 </template>
 <script>
-import { defineComponent, computed, ref, watch } from "vue";
+import { defineComponent, computed, ref, watch, reactive } from "vue";
 import addMember from "@/compotents/addMember.vue";
 import { getData } from "@/store";
 
@@ -49,6 +49,33 @@ export default defineComponent({
   setup() {
     const rows = getData.value;
     const addMember = ref(null);
+    const searchCompany = ref([]);
+    const searchStatus = ref("");
+
+    const serchFilters = computed(() => {
+      const searchdata = reactive([]);
+      if (searchCompany.value.length == 0 && searchStatus.value.length == 0) {
+        return rows;
+      }
+      rows.forEach((i) => {
+        if (
+          searchStatus.value.length > 0 &&
+          searchCompany.value.length > 0 &&
+          searchStatus.value.includes(i.Company) &&
+          i.Status == searchStatus.value
+        ) {
+          searchdata.push(i);
+        } else {
+          if (searchStatus.value.length > 0 && i.Status == searchStatus.value) {
+            searchdata.push(i);
+          }
+          if (searchCompany.value.length > 0 && searchStatus.value.includes(i.Company)) {
+            searchdata.push(i);
+          }
+        }
+      });
+      return searchdata;
+    });
 
     const openDialog = () => {
       addMember.value.openDiaAction();
@@ -86,6 +113,9 @@ export default defineComponent({
       remove,
       openDialog,
       addMember,
+      searchStatus,
+      searchCompany,
+      serchFilters,
     };
   },
 });
